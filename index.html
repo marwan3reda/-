@@ -323,8 +323,8 @@
       <h1>تعلم بذكاء مع ستاديكس</h1>
       <p>منصة تعليمية تجمع بين التقنية الحديثة والكتب المفيدة</p>
       <div class="hero-buttons">
-        <a href="#" class="btn">انضم الآن</a>
-        <a href="#" class="btn">تصفح الكتب</a>
+        <a href="log in.html" class="btn">انضم الآن</a>
+        <a href="4.html" class="btn">تصفح الكتب</a>
       </div>
     </div>
 
@@ -344,7 +344,7 @@
         <p style="font-size:1.15rem; line-height:1.8; color:#444;">
           منصتنا تجمع بين أحدث التقنيات التعليمية ومجتمع طلابي داعم، مع مكتبة ضخمة من الكتب والمواد التعليمية المختارة بعناية.
         </p>
-        <a href="#" class="btn" style="display:inline-block; margin-top:25px; background:white; color:#8C7B6D;">انضم الآن</a>
+        <a href="log in.html" class="btn" style="display:inline-block; margin-top:25px; background:white; color:#8C7B6D;">انضم الآن</a>
       </div>
       <div class="about-img">
         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="طلاب يدرسون">
@@ -391,28 +391,66 @@
   </section>
 
   <!-- نموذج التواصل -->
+  <!-- نموذج التواصل (حطه قبل الفوتر) -->
   <section class="contact-form">
-    <h2 class="section-title">تواصل معنا بسهولة</h2>
-    <p style="margin-bottom:40px; opacity:0.9;">نحن هنا للإجابة على كل استفساراتك</p>
-
+    <h2 class="section-title">تواصل معانا</h2>
+    <p style="color:#ccc; margin-bottom:50px;">هنرد عليك في أقل من ساعة!</p>
+  
     <div class="form-container">
-      <form>
+      <div class="alert" id="contactAlert"></div>
+  
+      <form id="contactForm">
         <div class="form-group">
-          <label>الاسم الكامل</label>
-          <input type="text" placeholder="اكتب اسمك هنا" required>
+          <label>اسمك الكامل</label>
+          <input type="text" name="name" placeholder="اكتب اسمك هنا" required>
         </div>
         <div class="form-group">
-          <label>البريد الإلكتروني *</label>
-          <input type="email" placeholder="اكتب بريدك هنا" required>
+          <label>بريدك الإلكتروني</label>
+          <input type="email" name="email" placeholder="example@gmail.com" required>
         </div>
         <div class="form-group">
-          <label>رسالتك *</label>
-          <textarea rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
+          <label>رسالتك</label>
+          <textarea name="message" rows="6" placeholder="اكتب رسالتك هنا..." required></textarea>
         </div>
-        <button type="submit" class="submit-btn">إرسال</button>
+        <button type="submit" class="submit-btn">إرسال الرسالة</button>
       </form>
     </div>
   </section>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init({
+        publicKey: "M4Fz9U1wE0jWd7eOo"  // ←←← حط الـ Public Key بتاعك هنا بالظبط
+      });
+    })();
+  
+    window.onload = function() {
+      document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        // زرار الإرسال يتحول لـ "جاري الإرسال..."
+        this.querySelector('button').innerHTML = 'جاري الإرسال...';
+  
+        emailjs.sendForm('service_o7ed5oa', 'template_44pvqcr', this)  // ← حط الـ Template ID هنا
+          .then(() => {
+            document.getElementById('contactAlert').innerHTML = 'تم إرسال الرسالة بنجاح!';
+            document.getElementById('contactAlert').className = 'alert success';
+            document.getElementById('contactAlert').style.display = 'block';
+            this.reset();
+            this.querySelector('button').innerHTML = 'إرسال الرسالة';
+          }, (error) => {
+            console.log(error);
+            document.getElementById('contactAlert').innerHTML = 'في مشكلة، جرب تاني أو ابعت واتساب';
+            document.getElementById('contactAlert').className = 'alert error';
+            document.getElementById('contactAlert').style.display = 'block';
+            this.querySelector('button').innerHTML = 'إرسال الرسالة';
+          });
+      });
+    }
+  </script>
 
   <!-- الفوتر -->
   <footer>
@@ -447,5 +485,4 @@
 
 </body>
 </html>
-
 
